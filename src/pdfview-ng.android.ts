@@ -9,10 +9,10 @@ import {
   bookmarkLabelProperty,
   ControllerRect
 } from "./pdfview-ng.common";
-import * as fs from "tns-core-modules/file-system";
+
 import pdfviewer = com.github.barteksc.pdfviewer;
-import * as http from "tns-core-modules/http";
-import { knownFolders } from "tns-core-modules/file-system/file-system";
+
+import { knownFolders, Http } from "@nativescript/core";
 
 export class Bookmark extends BookmarkCommon {
   private nativeitem: pdfviewer.Bookmark;
@@ -43,7 +43,7 @@ export class Bookmark extends BookmarkCommon {
 }
 
 export class PDFViewNg extends PDFViewNgCommon {
-  private tempFolder = fs.knownFolders.temp().getFolder("PDFViewer.temp/");
+  private tempFolder = knownFolders.temp().getFolder("PDFViewer.temp/");
   private value_src: string;
   private value_default_page: string = "0";
   private value_bookmark_path: number[];
@@ -92,7 +92,7 @@ export class PDFViewNg extends PDFViewNgCommon {
 
   private async downloadFile(src: string): Promise<string> {
     let temp = knownFolders.temp().path + "/download.pdf";
-    let response = await http.request({
+    let response = await Http.request({
       url: src,
       method: "GET"
     });
@@ -127,7 +127,7 @@ export class PDFViewNg extends PDFViewNgCommon {
       .then(src => {
         console.log("PDFViewNg Android (Step 3) Download ok: " + src);
         if (src.indexOf("~") >= 0) {
-          let r = fs.knownFolders.currentApp().path;
+          let r = knownFolders.currentApp().path;
           src = src.replace("~", r);
         }
         if (src.indexOf("://") === -1) {
@@ -179,10 +179,10 @@ export class PDFViewNg extends PDFViewNgCommon {
       })();
 
       this.android
-            .fromUri(uri)
-            .onLoad(onLoadHandler)
-            .defaultPage(default_page)
-            .load();
+        .fromUri(uri)
+        .onLoad(onLoadHandler)
+        .defaultPage(default_page)
+        .load();
     });
   }
 
