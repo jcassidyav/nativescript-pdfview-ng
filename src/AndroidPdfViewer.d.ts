@@ -1,6 +1,7 @@
 /// <reference path="./node_modules/tns-platform-declarations/android.d.ts" />
 
 declare namespace com.github.barteksc.pdfviewer {
+  @NativeClass()
   export class PDFView extends android.view.SurfaceView {
     constructor(x, y);
     fromFile(file: java.io.File): Configurator;
