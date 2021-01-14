@@ -219,7 +219,7 @@ export class PDFViewNg extends PDFViewNgCommon {
     controller.presentOpenInMenuFromRectInViewAnimated(CGRectMake(rect.x, rect.y, rect.width, rect.height), controller.delegate.documentInteractionControllerViewForPreview(controller), false);
   }
 }
-
+@NativeClass
 class UIDocumentInteractionControllerDelegateImpl2 extends NSObject implements UIDocumentInteractionControllerDelegate {
   public static ObjCProtocols = [UIDocumentInteractionControllerDelegate];
 
